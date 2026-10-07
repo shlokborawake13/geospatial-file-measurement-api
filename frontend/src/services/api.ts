@@ -1,7 +1,10 @@
 import type { FileDetailResponse, FileUploadResponse } from "../types/file";
 import type { MeasurementsResponse } from "../types/measurement";
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ??
+  import.meta.env.VITE_API_URL ??
+  "http://localhost:8000";
 
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {

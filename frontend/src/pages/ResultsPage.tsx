@@ -6,7 +6,7 @@ import Pagination from "../components/Pagination";
 import ErrorMessage from "../components/ErrorMessage";
 import { getFile, getMeasurements } from "../services/api";
 import type { FileDetailResponse } from "../types/file";
-import type { MeasurementResponse, MeasurementsResponse } from "../types/measurement";
+import type { MeasurementsResponse } from "../types/measurement";
 
 const PAGE_SIZE = 100;
 
