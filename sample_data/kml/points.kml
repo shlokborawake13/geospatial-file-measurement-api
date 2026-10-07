@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Sample Points</name>
+    <Placemark>
+      <name>Point A</name>
+      <Point><coordinates>72.8777,19.0760,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>Point B</name>
+      <Point><coordinates>77.2090,28.6139,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>Point C</name>
+      <Point><coordinates>80.2707,13.0827,0</coordinates></Point>
+    </Placemark>
+  </Document>
+</kml>

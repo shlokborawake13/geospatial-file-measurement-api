@@ -1,0 +1,201 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-border: #dee2e6;
+  --color-primary: #0d6efd;
+  --color-primary-hover: #0b5ed7;
+  --color-text: #212529;
+  --color-muted: #6c757d;
+  --color-success: #198754;
+  --color-warning: #ffc107;
+  --color-danger: #dc3545;
+  --color-info: #0dcaf0;
+  --radius: 8px;
+  --shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
+
+.subtitle { color: var(--color-muted); margin-bottom: 2rem; }
+
+/* ── Upload page ─────────────────────────────────────────────────────────── */
+.uploader { margin-bottom: 1.5rem; }
+
+.drop-zone {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.drop-zone:hover, .drop-zone.dragging {
+  border-color: var(--color-primary);
+  background: #f0f6ff;
+}
+.drop-zone.disabled { opacity: 0.5; cursor: not-allowed; }
+.drop-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+.link { color: var(--color-primary); text-decoration: underline; }
+.hint { color: var(--color-muted); font-size: 0.875rem; margin-top: 0.5rem; }
+.validation-error { color: var(--color-danger); font-size: 0.875rem; margin-top: 0.5rem; }
+
+/* ── Loading ─────────────────────────────────────────────────────────────── */
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-muted);
+  padding: 1rem 0;
+}
+.spinner {
+  display: inline-block;
+  width: 18px; height: 18px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Error banner ────────────────────────────────────────────────────────── */
+.error-banner {
+  background: #fff5f5;
+  border: 1px solid #ffc9c9;
+  border-radius: var(--radius);
+  padding: 0.875rem 1rem;
+  color: var(--color-danger);
+  margin-top: 1rem;
+}
+.error-text { color: var(--color-danger); }
+
+/* ── File summary ────────────────────────────────────────────────────────── */
+.file-summary {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+}
+.file-summary h2 { margin-bottom: 1rem; word-break: break-all; }
+
+.summary-table { width: 100%; border-collapse: collapse; }
+.summary-table td { padding: 0.4rem 0.75rem; font-size: 0.9rem; }
+.summary-table td:first-child { color: var(--color-muted); width: 180px; }
+.summary-table tr:not(:last-child) td { border-bottom: 1px solid var(--color-bg); }
+
+/* ── Status badges ───────────────────────────────────────────────────────── */
+.status-badge {
+  display: inline-block;
+  padding: 0.2em 0.65em;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.status-uploaded    { background: #e7f5ff; color: #1971c2; }
+.status-processing  { background: #fff9db; color: #e67700; }
+.status-completed   { background: #ebfbee; color: #2f9e44; }
+.status-failed      { background: #fff5f5; color: #c92a2a; }
+.status-not_required { background: #f1f3f5; color: var(--color-muted); }
+.status-unsupported { background: #fff9db; color: #e67700; }
+.status-success     { background: #ebfbee; color: #2f9e44; }
+
+/* ── Measurements section ────────────────────────────────────────────────── */
+.measurements-section { margin-top: 1rem; }
+
+.table-wrapper { overflow-x: auto; }
+
+.measurement-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+}
+.measurement-table th {
+  background: #f1f3f5;
+  padding: 0.65rem 0.875rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+.measurement-table td {
+  padding: 0.6rem 0.875rem;
+  border-bottom: 1px solid var(--color-bg);
+}
+.measurement-table tr:last-child td { border-bottom: none; }
+.measurement-table tr:hover td { background: #f8f9fa; }
+.measurement-table tr.row-failed td { background: #fff5f5; }
+.value-cell { font-variant-numeric: tabular-nums; text-align: right; }
+
+.empty-state { color: var(--color-muted); padding: 1rem 0; }
+
+/* ── Pagination ──────────────────────────────────────────────────────────── */
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+.pagination button {
+  padding: 0.4rem 0.875rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.15s;
+}
+.pagination button:hover:not(:disabled) { background: #f1f3f5; }
+.pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.btn-secondary {
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  transition: background 0.15s;
+}
+.btn-secondary:hover { background: #f1f3f5; }
+.back-btn { margin-bottom: 1.5rem; }
+
+code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.85em;
+  background: #f1f3f5;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}

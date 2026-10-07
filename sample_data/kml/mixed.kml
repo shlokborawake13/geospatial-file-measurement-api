@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Mixed Geometry Sample</name>
+    <Placemark>
+      <name>Zone A (Polygon)</name>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>
+              72.8,19.0,0
+              73.8,19.0,0
+              73.8,20.0,0
+              72.8,20.0,0
+              72.8,19.0,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>Road Segment (LineString)</name>
+      <LineString>
+        <coordinates>
+          72.8,19.0,0
+          72.81,19.0,0
+        </coordinates>
+      </LineString>
+    </Placemark>
+    <Placemark>
+      <name>Survey Point (Point)</name>
+      <Point><coordinates>72.8777,19.0760,0</coordinates></Point>
+    </Placemark>
+  </Document>
+</kml>
