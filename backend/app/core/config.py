@@ -17,13 +17,31 @@ class Settings(BaseSettings):
     MAX_UPLOAD_SIZE_MB: int = 50
     TEMP_DIR: str = "/tmp/geospatial-processing"
 
-    CORS_ORIGINS: str = "http://localhost:5173"
+    CORS_ORIGINS: str = (
+        "http://localhost:5173,http://127.0.0.1:5173,https://geospatial-file-measurement-api.vercel.app"
+    )
+    FRONTEND_URL: Optional[str] = None
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     @property
     def cors_origins_list(self) -> List[str]:
-        return [o.strip() for o in self.CORS_ORIGINS.split(",") if o.strip()]
+        origins: set[str] = {
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            "https://geospatial-file-measurement-api.vercel.app",
+        }
+        if self.CORS_ORIGINS:
+            for o in self.CORS_ORIGINS.split(","):
+                cleaned = o.strip().rstrip("/")
+                if cleaned:
+                    origins.add(cleaned)
+        if self.FRONTEND_URL:
+            for o in self.FRONTEND_URL.split(","):
+                cleaned = o.strip().rstrip("/")
+                if cleaned:
+                    origins.add(cleaned)
+        return sorted(origins)
 
     @property
     def max_upload_size_bytes(self) -> int:

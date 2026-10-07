@@ -18,6 +18,50 @@ class TestHealthEndpoint:
         assert response.json() == {"status": "ok"}
 
 
+class TestCORSEndpoint:
+    PROD_ORIGIN = "https://geospatial-file-measurement-api.vercel.app"
+
+    def test_cors_preflight_production_vercel_origin(self, client):
+        response = client.options(
+            "/api/files/",
+            headers={
+                "Origin": self.PROD_ORIGIN,
+                "Access-Control-Request-Method": "POST",
+                "Access-Control-Request-Headers": "content-type",
+            },
+        )
+        assert response.status_code == 200
+        assert response.headers.get("access-control-allow-origin") == self.PROD_ORIGIN
+        assert "POST" in response.headers.get("access-control-allow-methods", "")
+
+    def test_cors_preflight_localhost_origin(self, client):
+        response = client.options(
+            "/api/files/",
+            headers={
+                "Origin": "http://localhost:5173",
+                "Access-Control-Request-Method": "POST",
+            },
+        )
+        assert response.status_code == 200
+        assert response.headers.get("access-control-allow-origin") == "http://localhost:5173"
+
+    def test_cors_get_production_origin_includes_header(self, client):
+        response = client.get("/health/", headers={"Origin": self.PROD_ORIGIN})
+        assert response.status_code == 200
+        assert response.headers.get("access-control-allow-origin") == self.PROD_ORIGIN
+
+    def test_cors_disallowed_origin_rejected(self, client):
+        response = client.options(
+            "/api/files/",
+            headers={
+                "Origin": "https://unauthorized-domain.com",
+                "Access-Control-Request-Method": "POST",
+            },
+        )
+        assert response.status_code == 400
+        assert "access-control-allow-origin" not in response.headers
+
+
 class TestUploadEndpoint:
     VALID_KML = b"""<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
